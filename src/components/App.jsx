@@ -46,7 +46,6 @@ const App = () => {
   //Component Did Mount Hook
   useEffect(() => {
     const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
-    console.log('From did mount', localStorageContacts);
     if (localStorageContacts) {
       setContacts(localStorageContacts);
     }
