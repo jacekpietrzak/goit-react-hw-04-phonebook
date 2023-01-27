@@ -20,6 +20,15 @@ const App = () => {
     setFilter(event.target.value.toLowerCase());
   };
 
+  const loadLocalStorage = () => {
+    const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (localStorageContacts) {
+      setContacts(localStorageContacts);
+    }
+  };
+
+  loadLocalStorage;
+
   const addContact = contact => {
     const newContact = {
       id: nanoid(),
