@@ -9,6 +9,7 @@ const App = () => {
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem('contacts'))
   );
+
   const [filter, setFilter] = useState('');
 
   const handleFilter = event => {
@@ -43,6 +44,8 @@ const App = () => {
     const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
     if (localStorageContacts) {
       setContacts(localStorageContacts);
+    } else {
+      setContacts([]);
     }
   }, []);
 
@@ -52,9 +55,9 @@ const App = () => {
     localStorage.setItem('contacts', JSON.stringify(localStorageContacts));
   }, [contacts]);
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter)
-  );
+  const filteredContacts =
+    contacts &&
+    contacts.filter(contact => contact.name.toLowerCase().includes(filter));
 
   return (
     <div className={css.App}>
@@ -62,7 +65,12 @@ const App = () => {
       <ContactForm addContact={addContact} />
       <h2 className={css.h2}>Contacts</h2>
       <Filter handleFilter={handleFilter} />
-      <ContactList contacts={filteredContacts} removeContact={removeContact} />
+      {contacts && (
+        <ContactList
+          contacts={filteredContacts}
+          removeContact={removeContact}
+        />
+      )}
     </div>
   );
 };
