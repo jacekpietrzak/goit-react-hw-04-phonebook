@@ -7,7 +7,7 @@ import Filter from './Filter/Filter';
 
 const App = () => {
   const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem('contacts'))
+    JSON.parse(localStorage.getItem('contacts') || [])
   );
 
   const [filter, setFilter] = useState('');
@@ -39,17 +39,13 @@ const App = () => {
     setContacts(filteredArray);
   };
 
-  //Component Did Mount Hook
   useEffect(() => {
     const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
     if (localStorageContacts) {
       setContacts(localStorageContacts);
-    } else {
-      setContacts([]);
     }
   }, []);
 
-  //Component Did Update Hook
   useEffect(() => {
     const localStorageContacts = contacts;
     localStorage.setItem('contacts', JSON.stringify(localStorageContacts));
