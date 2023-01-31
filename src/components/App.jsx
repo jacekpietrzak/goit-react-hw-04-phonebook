@@ -7,7 +7,7 @@ import Filter from './Filter/Filter';
 
 const App = () => {
   const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem('contacts') || [])
+    JSON.parse(localStorage.getItem('contacts')) || []
   );
 
   const [filter, setFilter] = useState('');
@@ -40,20 +40,13 @@ const App = () => {
   };
 
   useEffect(() => {
-    const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
-    if (localStorageContacts) {
-      setContacts(localStorageContacts);
-    }
-  }, []);
-
-  useEffect(() => {
     const localStorageContacts = contacts;
     localStorage.setItem('contacts', JSON.stringify(localStorageContacts));
   }, [contacts]);
 
-  const filteredContacts =
-    contacts &&
-    contacts.filter(contact => contact.name.toLowerCase().includes(filter));
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter)
+  );
 
   return (
     <div className={css.App}>
